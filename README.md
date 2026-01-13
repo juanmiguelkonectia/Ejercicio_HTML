@@ -67,20 +67,4 @@ Comprender el sistema de:
 Añadir comentarios explicativos, especialmente en los archivos HTML, para facilitar la comprensión del proyecto.
 
 🗂️ Esquema del proyecto
-Proyecto/
-├── Front/
-│   ├── Site/
-│   │   ├── index.html
-│   │   ├── about.html
-│   │   └── contact.html
-│   └── Statics/
-│       ├── style.css
-│       └── main.js
-├── Back/
-│   └── Scripts/
-│       └── logic.js
-└── Misc/
-    ├── Bitmaps/
-    │   └── example-image.jpg
-    └── Vector/
-        └── example-icon.svg
+<img width="333" height="530" alt="image" src="https://github.com/user-attachments/assets/aea86d5b-7671-49b7-ad9c-4c6d47f11d2d" />
