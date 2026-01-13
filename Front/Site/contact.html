@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacto</title>
+    <link rel="stylesheet" href="../Statics/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Contacto</h1>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="about.html">Sobre</a>
+        <a href="contact.html">Contacto</a>
+        <a href="compare.html">Comparar imágenes</a>
+    </nav>
+</header>
+
+<main>
+    <!-- 
+        <form> se usa para enviar información del usuario
+        En este ejemplo no se envía a ningún servidor
+    -->
+    <form>
+        <label for="name">Nombre:</label>
+        <!-- 
+            id: identifica el elemento
+            name: se usa al enviar datos
+        -->
+        <input type="text" id="name" name="name">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+
+        <button type="submit">Enviar</button>
+    </form>
+</main>
+
+<footer>
+    <p>Página de contacto</p>
+</footer>
+
+<script src="../Statics/main.js"></script>
+</body>
+</html>

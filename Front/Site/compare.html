@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Comparación Bitmap vs Vector</title>
+
+    <!-- Estilos generales del proyecto -->
+    <link rel="stylesheet" href="../Statics/style.css">
+
+    <!-- Estilos específicos de esta página -->
+    <style>
+        /* Contenedor general de la comparación */
+        .compare-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Caja completa de cada imagen */
+        .image-box {
+            width: 320px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /*
+            Marco que contiene la imagen.
+            overflow: hidden evita que la imagen ampliada
+            se salga de la caja y tape otros elementos
+        */
+        .image-frame {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 10px auto;
+            border: 2px solid #ccc;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+        }
+
+        /* Imagen que se puede escalar y mover */
+        .zoom-image {
+            width: 200px;
+            cursor: grab;
+            user-select: none;
+            transition: transform 0.2s ease;
+        }
+
+        .zoom-image:active {
+            cursor: grabbing;
+        }
+
+        button {
+            margin: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Bitmap vs Vector</h1>
+
+    <!-- Navegación completa del sitio -->
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="about.html">Sobre</a>
+        <a href="contact.html">Contacto</a>
+        <a href="compare.html">Comparación</a>
+    </nav>
+</header>
+
+<main>
+
+    <!-- Explicación del objetivo de la página -->
+    <section>
+        <p>
+            Usa los botones de zoom y arrastra las imágenes para observar
+            cómo un formato <strong>bitmap (JPG)</strong> pierde definición
+            al ampliarse, mientras que un <strong>vector (SVG)</strong>
+            mantiene la nitidez.
+        </p>
+    </section>
+
+    <!-- Contenedor que enfrenta ambas imágenes -->
+    <section class="compare-container">
+
+        <!-- BLOQUE BITMAP -->
+        <div class="image-box">
+            <h2>Bitmap (JPG)</h2>
+
+            <div class="image-frame">
+                <img
+                    id="bitmapImage"
+                    class="zoom-image"
+                    src="../../Misc/Bitmaps/example-image.jpg"
+                    alt="Imagen bitmap de ejemplo"
+                    onmousedown="startDrag(event, 'bitmap')">
+            </div>
+
+            <div>
+                <button onclick="zoomIn('bitmap')">Zoom +</button>
+                <button onclick="zoomOut('bitmap')">Zoom -</button>
+            </div>
+
+            <p>
+                Imagen formada por píxeles. Al aumentar mucho el zoom,
+                los píxeles se hacen visibles.
+            </p>
+        </div>
+
+        <!-- BLOQUE VECTOR -->
+        <div class="image-box">
+            <h2>Vector (SVG)</h2>
+
+            <div class="image-frame">
+                <img
+                    id="vectorImage"
+                    class="zoom-image"
+                    src="../../Misc/Vector/example-icon.svg"
+                    alt="Imagen vectorial de ejemplo"
+                    onmousedown="startDrag(event, 'vector')">
+            </div>
+
+            <div>
+                <button onclick="zoomIn('vector')">Zoom +</button>
+                <button onclick="zoomOut('vector')">Zoom -</button>
+            </div>
+
+            <p>
+                Imagen basada en vectores matemáticos.
+                No pierde calidad al ampliarse.
+            </p>
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>Comparación interactiva de formatos gráficos</p>
+</footer>
+
+<script>
+    /*
+        Estado de cada imagen:
+        - zoom: nivel de ampliación
+        - x, y: desplazamiento dentro del marco
+    */
+    const state = {
+        bitmap: { zoom: 1, x: 0, y: 0 },
+        vector: { zoom: 1, x: 0, y: 0 }
+    };
+
+    /*
+        Configuración del zoom
+        Valores altos para que el efecto sea claramente visible
+    */
+    const ZOOM_STEP = 2.5;
+    const MAX_ZOOM = 26;
+    const MIN_ZOOM = 0.5;
+
+    /*
+        Aplica las transformaciones CSS a la imagen:
+        translate -> mover
+        scale -> ampliar/reducir
+    */
+    function updateTransform(type) {
+        const img = document.getElementById(type + 'Image');
+        const { zoom, x, y } = state[type];
+
+        img.style.transform =
+            `translate(${x}px, ${y}px) scale(${zoom})`;
+    }
+
+    /* Aumenta el zoom */
+    function zoomIn(type) {
+        if (state[type].zoom < MAX_ZOOM) {
+            state[type].zoom += ZOOM_STEP;
+            updateTransform(type);
+        }
+    }
+
+    /* Reduce el zoom */
+    function zoomOut(type) {
+        if (state[type].zoom > MIN_ZOOM) {
+            state[type].zoom -= ZOOM_STEP;
+            updateTransform(type);
+        }
+    }
+
+    /*
+        -------------------------
+        LÓGICA DE ARRASTRE (PAN)
+        -------------------------
+    */
+
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let currentType = null;
+
+    /*
+        Se ejecuta al pulsar el ratón sobre una imagen
+    */
+    function startDrag(event, type) {
+        isDragging = true;
+        currentType = type;
+        startX = event.clientX;
+        startY = event.clientY;
+    }
+
+    /*
+        Detecta el movimiento del ratón
+        y desplaza la imagen
+    */
+    document.addEventListener('mousemove', (event) => {
+        if (!isDragging || !currentType) return;
+
+        const dx = event.clientX - startX;
+        const dy = event.clientY - startY;
+
+        state[currentType].x += dx;
+        state[currentType].y += dy;
+
+        startX = event.clientX;
+        startY = event.clientY;
+
+        updateTransform(currentType);
+    });
+
+    /*
+        Finaliza el arrastre al soltar el ratón
+    */
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        currentType = null;
+    });
+</script>
+
+</body>
+</html>

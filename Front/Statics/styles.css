@@ -1,0 +1,35 @@
+/* 
+    Estilos generales del sitio
+    El selector body aplica a toda la página
+*/
+body {
+    font-family: Arial, sans-serif;
+    margin: 20;
+    padding: 0;
+}
+
+/* Estilos del header */
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+/* Estilos de los enlaces */
+nav a {
+    color: rgb(7, 106, 16);
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+/* Contenido principal */
+main {
+    padding: 20px;
+}
+
+/* Footer */
+footer {
+    background-color: #c60c0c;
+    text-align: center;
+    padding: 10px;
+}
