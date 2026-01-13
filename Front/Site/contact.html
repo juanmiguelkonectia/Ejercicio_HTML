@@ -22,19 +22,20 @@
         <form> se usa para enviar información del usuario
         En este ejemplo no se envía a ningún servidor
     -->
-    <form>
+
+    <form id="contactForm">
         <label for="name">Nombre:</label>
-        <!-- 
-            id: identifica el elemento
-            name: se usa al enviar datos
-        -->
-        <input type="text" id="name" name="name">
+        <input type="text" id="name" name="name" required>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email">
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
 
         <button type="submit">Enviar</button>
     </form>
+
 </main>
 
 <footer>

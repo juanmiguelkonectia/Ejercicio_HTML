@@ -33,3 +33,23 @@ footer {
     text-align: center;
     padding: 10px;
 }
+
+/* Estilos del formulario de contacto añadidos*/
+form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+form label {
+    margin-top: 10px;
+}
+
+form input {
+    padding: 6px;
+    margin-top: 4px;
+}
+
+form button {
+    margin-top: 15px;
+}
