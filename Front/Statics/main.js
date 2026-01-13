@@ -5,18 +5,19 @@ document.addEventListener("DOMContentLoaded", () => {
         form.addEventListener("submit", (e) => {
             e.preventDefault();
 
+            // Guardamos los datos
             const name = document.getElementById("name").value;
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
-            // Ocultar contraseña
-           /* const hiddenPassword = "*".repeat(password.length);*/
+            // Limpiar formulario ANTES de abrir la ventana
+            form.reset();
 
             let ficha;
 
             // En móvil: pestaña nueva
             if (window.innerWidth < 600) {
-                ficha = window.open("", "_blank");
+                ficha = window.open("about:blank", "_blank");
             } else {
                 const width = 420;
                 const height = 420;
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const top = (window.screen.height / 2) - (height / 2);
 
                 ficha = window.open(
-                    "",
+                    "about:blank",
                     "FichaUsuario",
                     `width=${width},height=${height},left=${left},top=${top},resizable=yes`
                 );
